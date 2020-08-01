@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+<body>
+<header>
+        <th:block th:include="~{fragments/nav}"></th:block>
+</header>
+<main>
+    <div class="container">
+        <h1 class="text-center">Shopping Cart</h1>
+        <div class="row text-center">
+            <table class="table table-striped my-4">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:if="${shoppingCartViewModel.size()>0}" th:each="orderItem,iter : ${shoppingCartViewModel}">
+                    <tr>
+                        <th scope="row" th:text="${iter.index+1}"></th>
+                        <td th:text="${orderItem.product.name}"></td>
+                        <td th:text="${orderItem.quantity}"></td>
+                        <td th:text="${orderItem.product.price}"></td>
+                        <td><a th:href="@{/cart/remove/{id}(id=${orderItem.id})}"
+                               class="btn btn-danger btn-sm">Remove</a></td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+        </div>
+        <div class="row justify-content-center">
+            <th:block th:if="${shoppingCartViewModel.size()<=0}">
+                <h1 class="text-center">Your shopping cart is empty!</h1>
+            </th:block>
+        </div>
+        <div class="row justify-content-end">
+            <h4>Total: <span th:text="${total}"></span>lv</h4>
+        </div>
+        <th:block th:if="${shoppingCartViewModel.size()>0}">
+            <form class="row justify-content-end" th:method="post" th:action="@{/orders/create}">
+                <div class="col-4 form-group">
+                    <label for="address" class="font-weight-bold">Choose delivery address</label>
+                    <select class="form-control" id="address" name="address" th:required="required">
+                        <option value="" selected="selected" disabled="disabled">Choose an address...</option>
+                        <th:block th:each="address : ${addresses}">
+                            <option th:value="${address.id}" th:text="${address.name}"></option>
+                        </th:block>
+                    </select>
+                </div>
+                <div class="button-holder mt-4 mb-4 d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success btn-lg m-2" id="order">Order</button>
+                </div>
+            </form>
+        </th:block>
+    </div>
+</main>
+<footer class="footer bg-success py-2">
+    <th:block th:include="~{fragments/footer}"></th:block>
+</footer>
+</body>
+</html>

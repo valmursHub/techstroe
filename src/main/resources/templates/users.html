@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+<body>
+<header>
+    <th:block th:include="~{fragments/nav}"></th:block>
+
+</header>
+<main>
+    <div class="container">
+        <h1 class="text-center">Users</h1>
+        <table id="users-table" class="table table-striped my-4 table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Username</th>
+                <th scope="col">Full Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone Number</th>
+                <th scope="col">Registered On</th>
+                <th scope="col">Modify Role</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        $(document).ready(function () {
+            fetch('/users/fetch/users').then(function (response) {
+                return response.json()
+            }).then(function (json) {
+                json.forEach(function (x, y) {
+                    $('#users-table')
+                        .append(
+                            '<tr>' +
+                            '<th scope="row">' + (parseInt(y) + 1) + '</th>\n' +
+                            '<td>' + x.username + '</td>\n' +
+                            '<td>' + x.fullName + '</td>\n' +
+                            '<td>' + x.email + '</td>\n' +
+                            '<td>' + x.phoneNumber + '</td>\n' +
+                            '<td>' + x.registeredOn + '</td>\n' +
+                            '<td>' +
+                            (!x.roles.includes('ROLE_ADMIN') && !x.roles.includes('ROLE_ROOT') ? '<a href="/users/admin/user/' + x.username + '/change-role/' + 'ROLE_ADMIN' + '" class="btn btn-danger btn-sm">ADMIN</a> ' : '') +
+                            (!x.roles.includes('ROLE_ROOT') && x.roles.includes('ROLE_ADMIN') ? '<a href="/users/admin/user/' + x.username + '/change-role/' + 'ROLE_USER' + '" class="btn btn-success btn-sm">USER</a> ' : '') +
+                            (x.roles.includes('ROLE_ROOT') && x.roles.includes('ROLE_ADMIN') && x.roles.includes('ROLE_USER') ? '<p >CANNOT MODIFY</p>' : '') +
+                            '</td>' +
+                            '</tr>'
+                        )
+                })
+            })
+        });
+    </script>
+</main>
+<footer class="footer bg-success py-2">
+    <th:block th:include="~{fragments/footer}"></th:block>
+</footer>
+</body>
+</html>

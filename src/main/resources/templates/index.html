@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+<body>
+<header>
+         <th:block th:include="~{fragments/nav}"></th:block>
+</header>
+<main>
+    <div class="container bg-gray p-3 rounded  text-center mt-5">
+        <h1>Welcome to our online store</h1>
+        <hr class="my-3"/>
+        <p class="h4">To view the details and shop you need to Login</p>
+        <hr class="my-3"/>
+        <h4>
+            <a class="text-primay" href="/users/login">Login</a>
+            if you have an account or
+            <a class="text-primay" href="/users/register">Register</a>
+            now and check our deals.
+        </h4>
+        <hr class="my-3"/>
+        <div class="row justify-content-center">
+            <h2 class="display-5">Some of our products:</h2>
+        </div>
+        <div class="row text-center">
+            <th:block th:each="product : ${products}">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card h-100">
+<!--                        <img class="card-img-top border-bottom" width="253px" height="165px" th:src="${product.image}" alt="">-->
+                        <img class="card-img-top border-bottom" th:src="${product.image}" alt="">
+                        <div class="card-body">
+                            <h4 class="card-title" th:text="${product.name}"></h4>
+                            <p class="card-text" th:text="${product.description}"></p>
+                        </div>
+                        <div class="card-footer">
+                            <a th:href="@{/menu}" class="btn btn-primary">More info...</a>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+
+    </div>
+</main>
+<footer class="footer bg-success  py-2">
+    <th:block th:include="~{fragments/footer}"></th:block>
+	</footer>
+</body>
+</html>

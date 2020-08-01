@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+
+<body>
+<header>
+    <th:block th:include="~{fragments/nav}"></th:block>
+</header>
+<main>
+    <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Register</span></h1>
+    <hr class="hr-3"/>
+<!--    <form th:object="${userRegisterBindingModel}" class="mx-auto mb-5 text-center w-25  bg-success p-3 rounded" th:action="@{/users/register}" method="POST">-->
+    <form th:object="${userRegisterBindingModel}" class="form-container  bg-success bg-gray p-3 text-center" th:action="@{/users/register}" method="POST">
+        <div class="form-group">
+            <div class="label-holder textCol d-flex justify-content-center">
+                <label for="username" class="h4 mb-2 text-white">Username</label>
+            </div>
+            <input th:field="*{username}" th:errorclass="bg-danger" type="text" class="form-control" id="username"
+                   name="username"/>
+            <small th:each="e : ${#fields.errors('username')}" th:text="${e}" class="text-danger">Incorrect
+                username!</small>
+        </div>
+
+        <div class="form-group">
+            <div class="label-holder text-white textCol d-flex justify-content-center">
+                <label for="fullName" class="h4 mb-2">Full name</label>
+            </div>
+            <input th:field="*{fullName}" th:errorclass="bg-danger" type="text" class="form-control" id="fullName"
+                   name="budget"/>
+            <small th:each="e : ${#fields.errors('fullName')}" th:text="${e}" class="text-danger">Incorrect
+                fullName!</small>
+        </div>
+
+        <div class="form-group">
+            <div class="label-holder text-white textCol d-flex justify-content-center">
+                <label for="email" class="h4 mb-2">Email</label>
+            </div>
+            <input th:field="*{email}" th:errorclass="bg-danger" type="email" class="form-control" id="email"
+                   name="email"/>
+            <small th:each="e : ${#fields.errors('email')}" th:text="${e}" class="text-danger">Incorrect email!</small>
+        </div>
+        <div class="form-group">
+            <div class="label-holder text-white textCol d-flex justify-content-center">
+                <label for="password" class="h4 mb-2">Password</label>
+            </div>
+            <input th:errorclass="bg-danger" type="password" class="form-control" id="password" name="password"/>
+            <small th:each="e : ${#fields.errors('password')}" th:text="${e}" class="text-danger">Incorrect
+                pasword!</small>
+        </div>
+        <div class="form-group">
+            <div class="label-holder text-white textCol d-flex justify-content-center">
+                <label for="confirmPassword" class="h4 mb-2">Confirm Password</label>
+            </div>
+            <input th:errorclass="bg-danger" type="password" class="form-control" id="confirmPassword"
+                   name="confirmPassword"/>
+            <small th:each="e : ${#fields.errors('confirmPassword')}" th:text="${e}" class="text-danger">Incorrect
+                pasword!</small>
+        </div>
+
+        <div class="form-group">
+            <div class="label-holder text-white textCol d-flex justify-content-center">
+                <label for="phoneNumber" class="h4 mb-2">Phone number</label>
+            </div>
+            <input th:field="*{phoneNumber}" th:errorclass="bg-danger" type="text" class="form-control" id="phoneNumber"
+                   name="phoneNumber"/>
+            <small th:each="e : ${#fields.errors('phoneNumber')}" th:text="${e}" class="text-danger">Incorrect
+                phoneNumber!</small>
+        </div>
+
+        <div class="button-holder d-flex justify-content-center">
+            <button type="submit" class="btn btn-secondary text-white mb-3" value="Register" \>Register</button>
+        </div>
+        <span>
+             <a class="text-white" href="/">Home</a>
+            Or
+            <a class="text-white" href="/users/login">Login</a>
+                 if you have an account !
+            </span>
+    </form>
+</main>
+<footer class="footer bg-success py-2">
+    <th:block th:include="~{fragments/footer}"></th:block>
+</footer>
+</body>
+</html>
