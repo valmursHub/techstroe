@@ -35,7 +35,6 @@ public class UserControllerTest {
         mockMvc.perform(get("/menu")).
                 andExpect(status().isOk()).
                 andExpect(view().name("menu"));//.
-//                andExpect(model().attributeExists("requestCount", "startedOn"));
     }
 
     @Test
