@@ -69,7 +69,9 @@ public class UserServiceImpl implements UserService {
     public UserServiceModel findUserByUsername(String username) {
         return this.userRepository.findByUsername(username)
                 .map(user -> this.modelMapper.map(user, UserServiceModel.class))
-                .orElse(null);
+                //TODO Check this
+//                .orElse(null);
+                .orElseThrow(() -> new UsernameNotFoundException("User " + username + " not found!"));
     }
 
     @Override
