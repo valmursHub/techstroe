@@ -1,8 +1,12 @@
 package com.vmollov.techstroe.unit;
 
 
+import com.vmollov.techstroe.model.binding.UserRegisterBindingModel;
 import com.vmollov.techstroe.model.entity.ShoppingCart;
 import com.vmollov.techstroe.model.entity.User;
+import com.vmollov.techstroe.model.service.RoleServiceModel;
+import com.vmollov.techstroe.model.service.ShoppingCartServiceModel;
+import com.vmollov.techstroe.model.service.UserServiceModel;
 import com.vmollov.techstroe.repository.ProductRepository;
 import com.vmollov.techstroe.repository.RoleRepository;
 import com.vmollov.techstroe.repository.ShoppingCartRepository;
@@ -27,8 +31,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.mockito.Mockito.when;
 
@@ -130,6 +136,41 @@ public class UserServiceTests {
 
         Assert.assertEquals(user.getUsername(), userService.findUserByUsername(username).getUsername());
     }
+
+//    @Test
+//    public void userService_registerUserWithCorrectValues_ReturnsCorrect() {
+//
+//        UserService userService = new UserServiceImpl(this.userRepository, this.modelMapper,this.roleRepository,this.bCryptPasswordEncoder, this.shoppingCartService);
+//
+//        UserRegisterBindingModel model = new UserRegisterBindingModel();
+//
+//        model.setUsername("User 1");
+//        model.setPassword("userpass");
+//        model.setConfirmPassword("userpass");
+//        model.setFullName("Test");
+//        model.setEmail("user@gmail.com");
+//        model.setPhoneNumber("123");
+//        UserServiceModel userServiceModel = this.modelMapper.map(model,UserServiceModel.class);
+//
+//        userServiceModel.setRegisteredOn(LocalDate.now());
+//        RoleServiceModel rsm = new RoleServiceModel();
+//        rsm.setAuthority("ROLE_ADMIN");
+//        userServiceModel.setAuthorities(Set.of(rsm));
+//        ShoppingCart shoppingCart = new ShoppingCart();
+//        shoppingCart.setId("1");
+//        shoppingCart.setExpiresOn(LocalDate.now());
+//        shoppingCartRepository.save(shoppingCart);
+//
+//        userServiceModel.setShoppingCart(this.modelMapper.map(shoppingCart, ShoppingCartServiceModel.class));
+//
+//        userService.addUser(userServiceModel);
+//
+//        User expected = this.userRepository.findAll().get(0);
+//
+//        Assert.assertEquals(model.getUsername(), expected.getUsername());
+//        Assert.assertEquals(model.getEmail(), expected.getEmail());
+////        Assert.assertEquals(4, expected.getAuthorities().size());
+//    }
 
 
 }
