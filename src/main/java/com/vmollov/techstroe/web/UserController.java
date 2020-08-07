@@ -101,13 +101,12 @@ public class UserController {
         return "redirect:login";
     }
 
-    //TODO Admin to view and change role of all Users
+
     @GetMapping("/admin/users")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PageTitle(value = "Users")
     public ModelAndView users(@AuthenticationPrincipal Principal principal, ModelAndView modelAndView ) {
-        //TODO Da popitam dali e dobre da vrushtem derectno "principal" ili e xybavo da go trensveriram
-        // " UserProfileViewModel user = this.modelMapper.map(userPrincipal, UserProfileViewModel.class);" kakto po dolu
+
         modelAndView.addObject("username", principal);
         modelAndView.setViewName("users");
         return modelAndView;

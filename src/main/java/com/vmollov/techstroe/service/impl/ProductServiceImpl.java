@@ -48,7 +48,6 @@ public class ProductServiceImpl implements ProductService {
         return this.modelMapper.map(this.productRepository.save(product), ProductServiceModel.class);
     }
 
-    //TODO CHECK Cache
     @Override
     @Cacheable(value = "allProducts")
     public List<ProductServiceModel> findAllProducts() {

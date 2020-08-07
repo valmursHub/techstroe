@@ -23,7 +23,7 @@ public class ShoppingCartControllerTest {
     public void testAdminCreateProduct_SuccessfulLoadig() throws Exception {
         mockMvc.perform(get("/cart")).
                 andExpect(status().isOk());
-        //TODO userService, shoppingCartService
+
 
 //                andExpect(view().name("shopping-cart"));
 //                andExpect(model().attributeExists("shoppingCartViewModel","total","addresses"));

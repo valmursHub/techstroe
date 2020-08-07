@@ -66,7 +66,7 @@ public class ProductController {
     public ModelAndView createConfirm(@Valid @ModelAttribute(name = "productCreateBindingModel") ProductCreateBindingModel productCreateBindingModel,
                                       BindingResult bindingResult, ModelAndView modelAndView) throws IOException {
 
-        //TODO REDIRECT WITH "redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.productCreateBindingModel", bindingResult);" if have time
+
         this.productCreateValidator.validate(productCreateBindingModel, bindingResult);
         if (bindingResult.hasErrors()){
             modelAndView.addObject("types", this.productTypeService.findAllTypes()
@@ -129,7 +129,6 @@ public class ProductController {
     }
 
 
-    // TODO CHECK @SuppressWarnings("Duplicates")
     @SuppressWarnings("Duplicates")
     @PostMapping("/admin/products/edit/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -150,7 +149,7 @@ public class ProductController {
             modelAndView.addObject("productEditBindingModel", productEditBindingModel);
             modelAndView.addObject("productViewModel", productViewModel);
             modelAndView.addObject("types", types);
-            //TODO IF Refresh Browser with filed fields bacouse hire not use redirect and "redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.productEditBindingModel", bindingResult);" Trayans Way
+
             modelAndView.setViewName("product-edit");
 
             return modelAndView;
@@ -173,7 +172,7 @@ public class ProductController {
         return modelAndView;
     }
 
-    //TODO Reviewing thish fetch and JS
+
     @GetMapping(value = {"/fetch/menu", "/fetch/menu/{type}"}, produces = "application/json")
     @ResponseBody
     public Object fetchMenuItems(@PathVariable Optional<String> type) {

@@ -45,7 +45,6 @@ public class ShoppingCartController {
     @PageTitle(value = "Shopping Cart")
     public ModelAndView shoppingCart(ModelAndView modelAndView, Principal principal) {
 
-        //TODO Reviewing this work - detailed !!!
 
         UserServiceModel user = this.userService.findUserByUsername(principal.getName());
         ShoppingCartServiceModel shoppingCartServiceModel = this.shoppingCartService.findShoppingCartById(user.getShoppingCart().getId());
