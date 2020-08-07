@@ -35,6 +35,8 @@ import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.anyListOf;
 import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
@@ -90,6 +92,47 @@ public class AddressServiceTest {
 
         addressService.findAddressById(addrId);
     }
+
+
+    @Test
+    public void createAddress_saveAndFlushCorrectly (){
+        User user = new User();
+        user.setUsername("testUsername");
+        Address address = new Address();
+        address.setName("testAddress");
+        List<Address> addressList = new ArrayList<>();
+        addressList.add(address);
+        user.setAddresses(addressList);
+
+        AddressServiceModel addressServiceModel = new AddressServiceModel();
+
+        when(userRepository.findByUsername("testUsername")).thenReturn(Optional.of(user));
+        when(addressRepository.saveAndFlush(any())).thenReturn(address);
+
+        addressService.createAddress(addressServiceModel,"testUsername");
+        verify(addressRepository).saveAndFlush(any());
+    }
+
+    @Test(expected = NotFoundException.class)
+    public void createAddress_invalidUser_throws (){
+        User user = new User();
+        user.setUsername("testUsername");
+        Address address = new Address();
+        address.setName("testAddress");
+        List<Address> addressList = new ArrayList<>();
+        addressList.add(address);
+        user.setAddresses(addressList);
+
+        AddressServiceModel addressServiceModel = new AddressServiceModel();
+
+        when(userRepository.findByUsername("testUsername")).thenReturn(Optional.empty());
+//        when(addressRepository.saveAndFlush(any())).thenReturn(address);
+
+        addressService.createAddress(addressServiceModel,"testUsername");
+        verify(addressRepository).saveAndFlush(any());
+    }
+
+
 
 }
 
